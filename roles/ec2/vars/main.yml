@@ -1,0 +1,9 @@
+---
+count: 1
+key_name: ansible
+instance_type: t2.nano
+image: ami-60b6c60a
+vpc_subnet_id: 
+group: ['default']
+region: us-east-1
+assign_public_ip: yes

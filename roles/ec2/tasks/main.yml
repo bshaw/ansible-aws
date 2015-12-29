@@ -1,0 +1,22 @@
+---
+- name: Launch ec2 instance
+  ec2:
+    key_name: "{{ key_name }}"
+    instance_type: "{{ instance_type }}"
+    group: "{{ group }}"
+    image: "{{ image }}"
+    wait: yes
+    count: "{{ count }}"
+    vpc_subnet_id: "{{ vpc_subnet_id }}"
+    assign_public_ip: "{{ assign_public_ip }}"
+    region: "{{ region }}"
+  register: ec2
+
+- name: Wait for SSH to come up
+  wait_for:
+    host={{ item.public_dns_name }}
+    port=22
+    delay=60
+    timeout=320
+    state=started
+  with_items: ec2.instances
